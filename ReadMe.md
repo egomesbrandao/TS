@@ -2,24 +2,28 @@
 
 ```
 <?xml version="1.0"?>
+<Configuration>
 <Server>
-    <collection>[Nome da Collection]<collection>
+    <Collection>[Nome da Collection]</Collection>
     <url>[URL do TFS]</url>
 </Server>
 <PAT>
     [TOKEN]
-<PAT>
+</PAT>
+</Configuration>
 ```
 
 # Exemplo:
 
 ```
 <?xml version="1.0"?>
+<Configuration>
 <Server>
-    <collection>DefaultCollection<collection>
+    <Collection>DefaultCollection</Collection>
     <url>fabrikamfiber.com/tfs</url>
 </Server>
 <PAT>
     wfcddxzadnwppjyspzlrapel6wd5qe4ebklxko5rvdu56ge2q
-<PAT>
+</PAT>
+</Configuration>
 ```
