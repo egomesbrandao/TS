@@ -22,7 +22,7 @@ $TPs = Invoke-RestMethod -Uri $listurl -Headers @{Authorization = "Basic $encode
 # Build the Teams list 
 # Ex.: https://{instance}/DefaultCollection/_apis/projects/{project}/teams?api-version={version}[&$top={integer}&$skip={integer}]
 ForEach($TP in $TPs.value){
-    $resource = '/projects/' + $TP.name + '/Teams'
+    $resource = '/projects/' + $TP.id + '/Teams'
     $version = '2.2'
     $listurl = 'http://' + $instance + $collection + '/_apis' + $resource + '?api-version=' + $version
 
@@ -32,6 +32,23 @@ ForEach($TP in $TPs.value){
     Write-Output $TP.name
     Write-Output '=========================='
     
-    Write-Output $Teams.value.name
+    ForEach($Team in $Teams.value){
+
+        $resource = '/projects/' + $TP.id + '/Teams' + '/' + $Team.id + '/members'
+        $version = '2.2'
+        $listurl = 'http://' + $instance + $collection + '/_apis' + $resource + '?api-version=' + $version
+        # GET https://{instance}/DefaultCollection/_apis/projects/{project}/teams/{team}/members?api-version={version}[&$to{integer}&$skip={integer}]
+
+        $Members = Invoke-RestMethod -Uri $listurl -Headers @{Authorization = "Basic $encodedPat"}
+
+        Write-Output '++++++++++++++++++++++++++'
+        Write-Output $Team.name
+        Write-Output '++++++++++++++++++++++++++'
+                
+        Write-Output 'Membros: '
+        ForEach($Member in $Members){
+            Write-Output $Member.value.displayName
+        }
+    }
 }
 
